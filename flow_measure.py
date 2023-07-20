@@ -2,6 +2,10 @@
 # coding: utf-8
 import numpy as np
 import serial
+import glob 
+import time
+import datetime
+from time import strftime, localtime
 
 import flow_real as fr
 import read_ms as rm
@@ -31,15 +35,6 @@ ser.close()
 flow_meas = float(mfcread('F')[18:25]) # tentatively should work 
 # In[2]:
 
-
-import numpy as np
-import flow_real as fr
-import read_ms as rm
-import glob 
-import time
-import datetime
-from time import strftime, localtime
-
 # get current time in file name format to find the most recent MS export
 dt = strftime("%m-%d-%Y", localtime())[1:] # [1:] gets rid of the 0 before the month for singular digit months (i.e. '07' for July)
 tm = strftime(" %H-%M-%S %p", localtime())
@@ -68,7 +63,7 @@ path = path_glob[np.argmin(t_diff)]
 
 # get concentration percentiles and calculate real flow
 xs = rm.read_ms(path)
-flow = fr.flow_real(10,['CH4','H2','CO2','CO'],xs)
+flow = fr.flow_real(flow_meas,['CH4','H2','CO2','CO'],xs)
 
 print('Output:',flow*xs[0],'ccm of CH4 as of %s'%path[87:108])
 
