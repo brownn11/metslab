@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
+# Reads output of mass spectrometer instrument:
 import numpy as np
 import serial
 import glob 
@@ -10,9 +9,7 @@ import scipy.constants as constants
 import pandas as pd
 import os
 
-import read_ms as rm
 import instrument_controls as ic
-
 #----------------------------------------------------------------------------------------------------------------
 # Basic compound properties (viscosity in gaseous phase at 25C [micropoise]):
 comp = {'H2' : {'v' : 89.153, 'm' : 2.016},
