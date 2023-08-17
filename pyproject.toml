@@ -1,3 +1,21 @@
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "reactor_controls_brownn11"
+version = "0.0.1"
+authors = [
+  { name="Nina Brown", email="ninamelissabrown@uchicago.edu" },
+]
+description = "Controls and functions used to run a methanogenic reactor in the Mets Lab at UChicago."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/brownn11/reactor_controls"
