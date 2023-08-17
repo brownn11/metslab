@@ -7,11 +7,14 @@ import time
 import datetime
 from time import strftime, localtime
 import scipy.constants as constants 
+import pandas as pd
+import os
 
 import read_ms as rm
 import instrument_controls as ic
 
-# write compound properties (viscosity in gaseous phase at 25C [micropoise]):
+#----------------------------------------------------------------------------------------------------------------
+# Basic compound properties (viscosity in gaseous phase at 25C [micropoise]):
 comp = {'H2' : {'v' : 89.153, 'm' : 2.016},
        'CO2' : {'v' : 149.332, 'm' : 44.009},
        'CO' : {'v' : 176.473, 'm' : 28.0101},
@@ -20,8 +23,18 @@ comp = {'H2' : {'v' : 89.153, 'm' : 2.016},
        'N2' : {'v' : 178.12, 'm' : 14.007},
        'O2' : {'v' : 204.591, 'm' : 15.999},
        'Ar' : {'v' : 225.593, 'm' : 39.948}}
+#----------------------------------------------------------------------------------------------------------------
+# Returns the composition of gas from the mass spectrometer (focused on CH4, H2, CO2, and CO):
+def read_ms(path):
+    ms_dat = pd.read_csv(r'%s'%path, skiprows=28) # opens up a Hiden Analytical mass spectrometry .csv data file:
+    CH4 = ms_dat.iloc[len(ms_dat)-1,10]/100
+    H2 = ms_dat.iloc[len(ms_dat)-1,11]/100
+    CO2 = ms_dat.iloc[len(ms_dat)-1,12]/100
+    CO = ms_dat.iloc[len(ms_dat)-1,13]/100
 
-# viscosity of a mixture of similar weight gases:
+    return [CH4,H2,CO2,CO] # [ccm]
+#----------------------------------------------------------------------------------------------------------------
+# Calculate the viscosity of a mixture of similar weight gases:
 def v_mix(aa,xs):
     vs,ms=[],[]
     for ii in aa:
@@ -32,17 +45,22 @@ def v_mix(aa,xs):
     ms=np.array(ms)
     mix = np.sum(vs*xs*np.sqrt(ms))/np.sum(xs*np.sqrt(ms))
     return mix
-
-# calculate real flow rate, adjust for temperature:
+#----------------------------------------------------------------------------------------------------------------
+# Calculate real flow rate, adjust for temperature:
 def flow_correction(Q_meas,aa,xs,visc_sel=184.918,T=298.15):
-    # selected viscosity for air, T = 25C as standard 
+    # Q_meas = measured flow rate via MFC
+    # aa = list of compound names
+    # xs = list of compound compositions
+    # visc_sel = selected viscosity of air
+    # T=25C stp
     visc_act = v_mix(aa,xs)
     if T!=298.15:
         visc_sel *= np.sqrt(T/298.15)
         visc_act *= np.sqrt(T/298.15)
     Q = Q_meas*(visc_sel/visc_act)
     return Q  # units of input flow rate
-    
+#----------------------------------------------------------------------------------------------------------------
+# Calculate real output of CH4 based on most recent MS file output:
 def flow_real(ser):
     flow_meas = float(ic.mfcread(ser, 'F')[18:25]) # tentatively should work 
     
@@ -78,4 +96,4 @@ def flow_real(ser):
     
     print('Output:',flow*xs[0],'ccm of CH4 as of %s'%path[87:108])
     return flow*xs[0]
-
+#----------------------------------------------------------------------------------------------------------------
