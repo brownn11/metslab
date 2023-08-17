@@ -1,12 +1,10 @@
+# File of all basic instrument controls:
 import time 
 import threading
 import serial
 import serial.tools.list_ports as ports
-
 # --------------------------------------------------------------------------------
 # General serial definitions:
-# --------------------------------------------------------------------------------
-
 def portlist():
     # ports facing user: [D C B E]
     com_ports = list(ports.comports())  # create a list of com ['COM1','COM2']
@@ -20,10 +18,8 @@ def btoa(bstr): #returns an ascii string from a bytes object
 def atob(strb): #returns a bytes object from an ascii string
     atobdat = strb.encode('ascii')
     return atobdat
-
 # --------------------------------------------------------------------------------
 # Actual instrument controls:
-
 def pumpread(ser, pumpid, cmd): # interacts with the pump
     t_ini=(time.time())
     ser.open()
