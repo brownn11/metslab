@@ -1,5 +1,5 @@
-# reactor_controls
-Collection of modules used to control our tube-in-tube flow reactor, and to read and interpret output data.
+# Mets Lab 2023:
+Collection of modules used in the Mets Lab at UChicago to control our tube-in-tube flow reactor, and to read and interpret output data. 
 
 # Installation:
 
