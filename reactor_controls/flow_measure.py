@@ -9,7 +9,7 @@ import scipy.constants as constants
 import pandas as pd
 import os
 
-import instrument_controls as ic
+from reactor_controls import instrument_controls as ic
 #----------------------------------------------------------------------------------------------------------------
 # Basic compound properties (viscosity in gaseous phase at 25C [micropoise]):
 comp = {'H2' : {'v' : 89.153, 'm' : 2.016},
