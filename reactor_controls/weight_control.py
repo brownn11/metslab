@@ -5,7 +5,7 @@ import threading
 import serial
 import serial.tools.list_ports as ports
 
-import instrument_controls as ic
+from reactor_controls import instrument_controls as ic
 
 #----------------------------------------------------------------------------------------------------------------
 # Abiltiy to open/close valves:
