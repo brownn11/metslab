@@ -21,7 +21,7 @@ def concentration_calc(Vm,Cn,        # Must define measured metabolic water accu
     return res
 #----------------------------------------------------------------------------------------------------------------
 # Specifically for 25 and 200X concentrations
-def x_25_200()
+def x_25_200():
     w_ini = ic.getweight(serW)
 
     # Set up some sort of time control here, so that the weight is only checked in-between pumps
