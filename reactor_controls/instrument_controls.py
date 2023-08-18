@@ -35,13 +35,19 @@ def getweight(ser): # interacts with the Ohaus balance
     ser.close()
     return weight
 
-def mfcread(ser, mfcid): #returns the ascii data string from mfcid
+def mfcread(ser, mfcid): # returns data from mass flow controllers as ascii strings
     ser.open()
     #reads until \r character or nn bytes or timeout s, whichever comes first
     ser.write(atob(mfcid + '\x0D'))
     mfcreaddat = btoa(ser.read_until(b'\x0D',100))
     ser.close()
     return mfcreaddat
+
+def setvalve(ser, pinid, cmd):  # interacts with solenoid valves for opening and closing using an Arduino computer
+    # pinid = solenoid ID
+    # cmd = True/False = Open/Close
+    ser.write(atob(pinid + ','+ cmd + '\x0D')) 
+    return #valveset
 
 # servers will need to be defined in the following format:
     # ser = serial.Serial('/dev/cu.usbserial-10') # port name can be found using 'portlist'
