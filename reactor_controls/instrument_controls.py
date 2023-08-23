@@ -31,7 +31,7 @@ def pumpread(ser, pumpid, cmd): # interacts with the pump
 def getweight(ser): # interacts with the Ohaus balance
     ser.open()
     ser.write(b'P\r\n')
-    weight=float(btoa(ser2.read_until(b'\r\n',100)).split()[0]) #print time, too
+    weight=float(btoa(ser.read_until(b'\r\n',100)).split()[0]) #print time, too
     ser.close()
     return weight
 
