@@ -1,4 +1,6 @@
 # Code to calculate the amount of concentration to be replaced during experiments, based off of weight fluctuations. 
+from reactor_controls import instrument_controls as ic
+
 #----------------------------------------------------------------------------------------------------------------
 def concentration_calc(Vm,Cn,        # Must define measured metabolic water accumualted and relative concentration. 
                        C1n=0,C2n=0,  # Define for multiple concentrations if needed.
@@ -21,7 +23,7 @@ def concentration_calc(Vm,Cn,        # Must define measured metabolic water accu
     return res
 #----------------------------------------------------------------------------------------------------------------
 # Specifically for 25 and 200X concentrations
-def x_25_200():
+def x_25_200(serW):
     w_ini = ic.getweight(serW)
 
     # Set up some sort of time control here, so that the weight is only checked in-between pumps
