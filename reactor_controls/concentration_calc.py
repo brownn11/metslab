@@ -34,6 +34,9 @@ def x_25_200(serW):
         Vm = (w-w_ini)/0.98319 # [cm3]; uses density of water at 60C
         res2 = cc(Vm=Vm, Cn=20, C1n=25, C2n=200)
         print('Vm  =', Vm, 'cm3\nVr  =', res2[0], 'cm3\nVn  =', res2[1], 'cm3\nV1n =', res2[2], 'cm3\nV2n =', res2[3],'cm3')
+        pack = [Vm, res2[0], res2[1], res2[2], res2[3]]
     else:
         print('Pass')
+        pack = 0
+    return pack
 #----------------------------------------------------------------------------------------------------------------
