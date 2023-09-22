@@ -6,10 +6,9 @@ import serial.tools.list_ports as ports
 # --------------------------------------------------------------------------------
 # General serial definitions:
 def portlist():
-    # ports facing user: [D C B E]
-    com_ports = list(ports.comports())  # create a list of com ['COM1','COM2']
+    com_ports = list(ports.comports())  
     for i in com_ports:
-        print(i.device)  # returns 'COMx'
+        print(i.device)  # returns available ports
     
 def btoa(bstr): #returns an ascii string from a bytes object
     btoadat = bstr.decode('ascii')
